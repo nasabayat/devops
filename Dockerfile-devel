@@ -1,0 +1,8 @@
+FROM alpine:3.9.5
+
+ENV PROJECT_PATH=/application
+
+RUN apk add --no-cache libc6-compat
+COPY ./application $PROJECT_PATH
+
+WORKDIR $PROJECT_PATH
