@@ -1,0 +1,14 @@
+---
+- name: runnng the task
+  hosts: machin-1
+  remote_user: "{{ user }}"
+  #become: yes
+  gather_facts: yes
+
+  vars: 
+    user: vagrant
+
+  roles:
+    - genscape
+
+ 
