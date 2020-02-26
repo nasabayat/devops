@@ -1,14 +1,12 @@
 ---
-- name: runnng the task
+- name: runnng the task on vms
   hosts: localhost
-  remote_user: "{{ user }}"
+  remote_user: "{{ remote_user}}"
   #become: no
   gather_facts: yes
 
-  vars: 
-    user: naser
+  vars:
+    remote_user: vagrant
 
   roles:
    - genscape
-
- 
