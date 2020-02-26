@@ -1,9 +1,9 @@
 ---
 - name: runnng the task
-  hosts: machin-1
+  hosts: localhost
   remote_user: "{{ user }}"
-  #become: yes
-  gather_facts: yes
+  become: yes
+  gather_facts: no
 
   vars: 
     user: vagrant
