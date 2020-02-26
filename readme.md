@@ -26,4 +26,8 @@ Requirements
 
 * Ansible
 * Vagrant 1.6 or newer (1.5 may work, too; 1.4 does not)
+* Virtualbox
 * git clone https://github.com/nasabayat/genscape.git
+
+- localhost is used as hosts
+- user which Virtualbox installed with it, should be used
