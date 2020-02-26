@@ -26,3 +26,4 @@ Requirements
 
 * Ansible
 * Vagrant 1.6 or newer (1.5 may work, too; 1.4 does not)
+* git clone https://github.com/nasabayat/genscape.git

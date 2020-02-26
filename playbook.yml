@@ -2,13 +2,13 @@
 - name: runnng the task
   hosts: localhost
   remote_user: "{{ user }}"
-  become: yes
-  gather_facts: no
+  #become: no
+  gather_facts: yes
 
   vars: 
-    user: vagrant
+    user: naser
 
   roles:
-    - genscape
+   - genscape
 
  
