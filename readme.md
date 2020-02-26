@@ -19,3 +19,10 @@ The following problem is an opportunity to demonstrate your knowledge in these a
    4. It seems that the developer had a bad day, so the app has an easter egg, can you find it?
 
 3. **Have fun!** Feel free to add your own features and ideas so long as they complement and extend the required features. This is your chance to show off.
+
+
+Requirements
+==============
+
+* Ansible
+* Vagrant 1.6 or newer (1.5 may work, too; 1.4 does not)
