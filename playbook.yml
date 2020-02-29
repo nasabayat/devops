@@ -1,12 +1,28 @@
 ---
-- name: runnng the task on vms
-  hosts: localhost
-  remote_user: "{{ remote_user}}"
-  #become: no
-  gather_facts: yes
 
-  vars:
-    remote_user: vagrant
+# - hosts: dockerswarmcluster
+#   become: yes
+#   user: "{{ remote_user }}"
+#   vars:
+#     remote_user: vagrant
+#   tasks:
+#     - name: init manager, manager and worker token extracted
+#       import_role:
+#         name: genscape
+#         tasks_from: docker-installation.yml
 
-  roles:
-   - genscape
+- hosts: manager-1
+  user: vagrant
+  tasks:
+  - name: init manager, manager and worker token extracted
+    import_role:
+      name: genscape
+      tasks_from: docker-swarm.yml
+    
+- hosts: manager-2
+  user: vagrant
+  tasks:  
+  - name: join  manager2 & 3
+    import_role:
+      name: genscape
+      tasks_from: docker-swarm-join-manager.yml
