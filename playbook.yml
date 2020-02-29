@@ -1,28 +1,62 @@
 ---
+- hosts: localhost
+  user: naser
+  tasks:
+  - name: clone repositories and create vms
+    include_role:
+      name: genscape
+      tasks_from: "{{ item }}"
+    with_items:
+      - clone.yml
+      - vm-creation.yml
+      - public-key.yml   
+  
+  - pause:
+      minutes: 2
 
-# - hosts: dockerswarmcluster
-#   become: yes
-#   user: "{{ remote_user }}"
-#   vars:
-#     remote_user: vagrant
-#   tasks:
-#     - name: init manager, manager and worker token extracted
-#       import_role:
-#         name: genscape
-#         tasks_from: docker-installation.yml
+- hosts: dockerswarmcluster
+  user: vagrant
+  become: yes
+  tasks:
+  - name: install docker to vms
+    import_role:
+      name: genscape
+      tasks_from: docker-installation.yml
+
+  - pause:
+      minutes: 2
 
 - hosts: manager-1
   user: vagrant
   tasks:
-  - name: init manager, manager and worker token extracted
+  - name: init manager, extract token
     import_role:
       name: genscape
       tasks_from: docker-swarm.yml
-    
-- hosts: manager-2
+  # - name: Remove a swarm manager
+  #   docker_swarm:
+  #     state: absent
+  #     force: true
+
+- hosts: manager-2, manager-3
   user: vagrant
   tasks:  
   - name: join  manager2 & 3
     import_role:
       name: genscape
       tasks_from: docker-swarm-join-manager.yml
+#   # - name: Leave swarm for a node
+#   #   docker_swarm:
+#   #     state: absent
+#   #     force: true
+
+  - pause:
+      minutes: 2
+
+- hosts: worker-1, manager-3
+  user: vagrant
+  tasks:  
+  - name: join  worker
+    import_role:
+      name: genscape
+      tasks_from: docker-swarm-join-worker.yml
