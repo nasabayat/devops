@@ -33,6 +33,13 @@
     import_role:
       name: genscape
       tasks_from: docker-swarm.yml
+  - name: Copy docker-compose-stack.yml to manager-1
+    copy:
+      src: "{{ local_user_path }}/devops"
+      dest: "{{ remote_user_path }}"
+      owner: vagrant
+      group: vagrant
+      mode: u=rw,g=r,o=r
   # - name: Remove a swarm manager
   #   docker_swarm:
   #     state: absent
@@ -60,3 +67,11 @@
     import_role:
       name: genscape
       tasks_from: docker-swarm-join-worker.yml
+
+- hosts: manager-1
+  user: vagrant
+  tasks:  
+  - name: deploy stack
+    import_role:
+      name: genscape
+      tasks_from: deploy-stack.yml
