@@ -35,7 +35,7 @@
       tasks_from: docker-swarm.yml
   - name: Copy docker-compose-stack.yml to manager-1
     copy:
-      src: "{{ local_user_path }}/devops"
+      src: "{{ local_user_path }}"
       dest: "{{ remote_user_path }}"
       owner: vagrant
       group: vagrant
