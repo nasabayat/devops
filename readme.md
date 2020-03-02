@@ -1,3 +1,4 @@
+On your local machine, 4 VMs will be created and finally will join docker swarm cluster and run one application with 3 replicas.
 
 Requirements
 ==============
