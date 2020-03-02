@@ -1,30 +1,30 @@
 ---
-# - hosts: localhost
-#   user: naser
-#   tasks:
-#   - name: clone repositories and create vms
-#     include_role:
-#       name: genscape
-#       tasks_from: "{{ item }}"
-#     with_items:
-#       - clone.yml
-#       - vm-creation.yml
-#       - public-key.yml   
-  
-#   - pause:
-#       minutes: 2
+- hosts: localhost
+  user: naser
+  tasks:
+  - name: clone repositories and create vms
+    include_role:
+      name: genscape
+      tasks_from: "{{ item }}"
+    with_items:
+      - clone.yml
+      - vm-creation.yml
+      - public-key.yml   
 
-# - hosts: dockerswarmcluster
-#   user: vagrant
-#   become: yes
-#   tasks:
-#   - name: install docker to vms
-#     import_role:
-#       name: genscape
-#       tasks_from: docker-installation.yml
+  - pause:
+      minutes: 2
 
-#   - pause:
-#       minutes: 2
+- hosts: dockerswarmcluster
+  user: vagrant
+  become: yes
+  tasks:
+  - name: install docker to vms
+    import_role:
+      name: genscape
+      tasks_from: docker-installation.yml
+
+  - pause:
+      minutes: 2
 
 - hosts: manager-1
   user: vagrant
@@ -35,14 +35,12 @@
       tasks_from: docker-swarm.yml
   - name: Copy docker-compose-stack.yml to manager-1
     copy:
-      src: "{{ local_user_path }}/devops"
+      src: "{{ local_user_path }}/devops/docker-compose-stack.yml"
       dest: "{{ remote_user_path }}"
-      owner: vagrant
-      group: vagrant
-  # - name: Remove a swarm manager
-  #   docker_swarm:
-  #     state: absent
-  #     force: true
+#   # - name: Remove a swarm manager
+#   #   docker_swarm:
+#   #     state: absent
+#   #     force: true
 
 - hosts: manager-2, manager-3
   user: vagrant
@@ -51,15 +49,12 @@
     import_role:
       name: genscape
       tasks_from: docker-swarm-join-manager.yml
-#   # - name: Leave swarm for a node
-#   #   docker_swarm:
-#   #     state: absent
-#   #     force: true
+  # - name: Leave swarm for a node
+  #   docker_swarm:
+  #     state: absent
+  #     force: true
 
-  - pause:
-      minutes: 2
-
-- hosts: worker-1, manager-3
+- hosts: worker-1
   user: vagrant
   tasks:  
   - name: join  worker
