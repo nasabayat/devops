@@ -1,5 +1,29 @@
 On your local machine, 4 VMs will be created and finally will join docker swarm cluster and run one application with 3 replicas.
 
+Result
+=======
+```bash
+To add a manager to this swarm, run '' and follow the instructions.
+
+vagrant@manager-1:~$ docker stack ls
+NAME                SERVICES            ORCHESTRATOR
+app                 1                   Swarm
+vagrant@manager-1:~$ docker service ls
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+doiyd8zuwtmw        app_app             replicated          3/3                 nasabayat/app:01    *:8080->8080/tcp
+vagrant@manager-1:~$ docker service ps app_app
+ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE           ERROR               PORTS
+ny12va2nw9zy        app_app.1           nasabayat/app:01    manager-2           Running             Running 3 minutes ago                       
+woemlq2wmb9s        app_app.2           nasabayat/app:01    manager-3           Running             Running 3 minutes ago                       
+zfajzo05cgjy        app_app.3           nasabayat/app:01    manager-1           Running             Running 3 minutes ago                       
+vagrant@manager-1:~$ docker node ls
+ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+vdsqoz9zoknsq7lkg0k7lveev *   manager-1           Ready               Active              Leader              19.03.6
+yb6ei5wmzhzk1avmbuja930mr     manager-2           Ready               Active              Reachable           19.03.6
+sqowj4id6ixx33k5te3pwvc6q     manager-3           Ready               Active              Reachable           19.03.6
+reb7h5guqao8p0eadk5s37l88     worker-1            Ready               Active                                  19.03.6
+```
+
 Requirements
 ==============
 
